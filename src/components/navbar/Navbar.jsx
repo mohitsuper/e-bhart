@@ -3,19 +3,24 @@ import { Link, Navigate } from "react-router-dom";
 import Search from "../search/Search";
 
 export default function Navbar() {
+
+//HOW TO GET DATA FIREBASE?
+
+
+//solved error?
+
   // State to manage the visibility of the mobile menu
   const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
-
+  
+   let localData = localStorage.getItem("users");
+   let userinfo = JSON.parse(localData);
+   console.log(localData)
   // Function to toggle the mobile menu
   const toggleMobileMenu = () => {
     setMobileMenuOpen(!isMobileMenuOpen);
   };
-  let userData = localStorage.getItem('user');
-  userData = JSON.parse(userData);
- 
+  
   let logout =() =>{
-    localStorage.clear();
-    
     Navigate('/login');
   }
 
@@ -31,26 +36,28 @@ export default function Navbar() {
       <li>
         <Link to="/signup">Signup</Link>
       </li>
-      {/* <li>
-      <Link to="/user-dashboard">{userData.name}</Link>
-      </li> */}
-
+      <li>
+      <Link to="/user-dashboard">{(localData)?userinfo.name:"user"}</Link>
+      </li>
+      <li>
+        <Link to="/login">{(localData)?"logout":"login"}</Link>
+      </li> 
       <li>
         <Link to="/cart">Cart</Link>
       </li>
       <li>
-        <Link to="/admin">Admin</Link>
+        <Link to="/admin" className={`${(userinfo.role == "user")?"hidden":"block"}`}>Admin</Link>
       </li>
       <li>
        
-        <Link to="/login" onClick={logout}>{(userData)?"logout":"login"}</Link>
+        <Link to="/login" onClick={logout}></Link>
       </li>
     </ul>
   );
 
   return (
     <nav className="container-2xl bg-pink-600 sticky top-0 z-50">
-      <div className="container mx-auto flex flex-col lg:flex-row items-center py-3 lg:px-3 justify-between duration-500">
+      <div className="container mx-auto flex flex-col lg:flex-row items-center py-3 lg:px-3 justify-between gap-4 duration-500">
         {/* Logo Section */}
         <div className="flex justify-between items-center w-full lg:w-auto px-3">
           <Link to="/">

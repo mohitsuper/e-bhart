@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Layout from '../../components/layout/Layout';
 import { useLocation } from 'react-router-dom';
 import { productData } from '../../components/Products/ProductData';
@@ -10,7 +10,7 @@ export function Card() {
   console.log(filter);
   //how to get product info page data in card page?
 
-  const [prolist, setProlist] = useState([{}]);
+  const [prolist, setProlist] = useState([]);
   console.log(prolist)
 
 
@@ -20,16 +20,21 @@ export function Card() {
       href: '#',
       name: filter[0].title,
       price: filter[0].price,
-      discount: '78% off',
+      discount: '10',
       color: 'Black',
       imageSrc: filter[0].image,
       quantity: filter[0].quantity,
     }
 
-  
-     console.log(filter[0].id)
-    prolist.push(objNew)
-    console.log(prolist)
+    //how to add new element in prolist
+    useEffect(() => {
+      if (!prolist.find(item => item.id === objNew.id)) {
+        setProlist([...prolist, objNew]);
+      }
+    
+       },[]);
+
+   
 
 
   const removeItem = (id) => {
@@ -60,7 +65,7 @@ export function Card() {
     <Layout>
       <div className='container-2xl mx-auto px-5'>
         <h1 className='text-[2rem] my-5 font-bold text-[#333]'>Shopping Cart</h1>
-        <div className='flex justify-between sm:flex-col xl:flex-row'>
+        <div className='flex justify-between flex-col xl:flex-row'>
           <div className='flex flex-col gap-1 basis-[40%]'>
             {prolist.map((item) =>(
               <div className="grid grid-cols-2 gap-2 my-3" key={item.id}>
@@ -69,13 +74,10 @@ export function Card() {
                 </div>
                 <div>
                   <h4>{item.name}</h4>
+                  
                   <div className='flex gap-1'>
                     <p>{item.color}</p>
-                    <p> | {item.size}</p>
-                  </div>
-                  <div className='flex gap-1'>
-                    <p className='strick-throw'>{item.price}</p>
-                    <p> | {item.originalPrice}</p>
+                    <p className='strick-throw'>&#8377;{item.price}</p>
                     <p>{item.discount}</p>
                   </div>
                 </div>
@@ -110,19 +112,28 @@ export function Card() {
                 <tr>
                   <th>Items</th>
                   <th>Discount</th>
+                  <th>price</th>
                   <th>Delivery Charge</th>
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td>₹2,219</td>
-                  <td className='text-green-500'>-₹777</td>
-                  <td className='text-green-500'>Free</td>
-                </tr>
+                 { prolist.map((v)=>{
+                  let dis = (v.price*v.discount)/100;
+                  let price = v.price-dis;
+                  // let totol += price;
+                    return(
+                      <tr>
+                      <td>&#8377;{v.price}</td>
+                      <td className='text-green-500'>-&#8377;{dis}</td>
+                      <td>&#8377;{price}</td>
+                      <td className='text-green-500'>Free</td>
+                      </tr>
+                    )
+                  })}
               </tbody>
             </table>
             <div>
-              <span>Total Amount: </span>
+              <span>Total Amount:{prolist.forEach((v)=>{})} </span>
               <span>₹8,888</span>
             </div>
           </div>

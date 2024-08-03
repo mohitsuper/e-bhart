@@ -1,17 +1,15 @@
 /* eslint-disable react/no-unescaped-entities */
-import { useContext, useState } from "react";
+import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import myContext from "../../context/myContext";
 import toast from "react-hot-toast";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth, fireDB } from "../../firebase/FirebaseConfig";
-import Loader from "../../loader/Loader";
-import { collection, onSnapshot, query, where } from "firebase/firestore";
+import { collection, getDoc, getDocs } from "firebase/firestore";
+// import Loader from "../../loader/Loader";
 
-
+//how to get data firebase?
 const Login = () => {
-    const context = useContext(myContext);
-    const { loading, setLoading } = context;
+    // const { loading, setLoading } = context;
 
     // navigate 
     const navigate = useNavigate();
@@ -22,62 +20,51 @@ const Login = () => {
         password: ""
     });
 
+
+    
     /**========================================================================
      *                          User Login Function 
     *========================================================================**/
 
-   let userLoginFunction =()=>{
-    let {email,password} = userLogin;
-    if(email==""||password==""){
-        toast.error("All are detiels full fil");
-    }
-    try{
-      let user = signInWithEmailAndPassword(auth,email,password);
-      let userDatas = localStorage.getItem('user');
-       userDatas = JSON.parse(userDatas)
-    // let userData = {name: "rohan", email: "rohan123@gmail.com", password: "123456", role: "user"};
+    let userLoginFunction = async ()=>{
+        let {email,password} = userLogin;
+        if(email==""||password==""){
+            toast.error("Please fill all the fields");
+        }
+        try {
+           let userCollection = collection(fireDB,"users");
+           
+           let q =  await getDocs(userCollection);
+           q.forEach((doc) =>{
+                if(doc.data().email==email&&doc.data().password==password) {
+                toast.success("Login Successfull");
+                localStorage.setItem("users",JSON.stringify(doc.data()))
+                navigate('/')
 
-          let {role} = userDatas;
-          console.log(role)
-      
-
-       if(user){
-        setUserLogin(
-            {
-                email: "",
-                password: ""
-            }
-        )
-       }
-       if(role == "user"){
-        navigate("/user-dashboard");
-       }
-       else{
-        navigate("/admin");
-
-       }
-      toast.success("login success...");
+                }
+                else{
+                    toast.error("Invalid Email or Password");
+                }
+         } )
+        }
+        catch(error){
+            console.log(error)
+        }
     }
-    catch(error){
-        console.log(error);
-        toast.error("login failed...")
-    }
-   }
     return (
         <div className='flex justify-center items-center h-screen'>
-            {loading && <Loader />}
             {/* Login Form  */}
-            <div className="login_Form bg-pink-50 px-8 py-6 border border-pink-100 rounded-xl shadow-md">
+            <div className="login_Form bg-pink-50 px-8 py-6 border border-pink-100 rounded-xl shadow-md w-[270px]">
 
                 {/* Top Heading  */}
-                <div className="mb-5">
-                    <h2 className='text-center text-2xl font-bold text-pink-500 '>
+                <div className="mb-5 w-full">
+                    <h2 className='text-center text-2xl font-bold text-pink-500 w-full'>
                         Login
                     </h2>
                 </div>
 
                 {/* Input One  */}
-                <div className="mb-3">
+                <div className="mb-3 w-full">
                     <input
                         type="email"
                         name="email"
@@ -89,12 +76,12 @@ const Login = () => {
                                 email: e.target.value
                             })
                         }}
-                        className='bg-pink-50 border border-pink-200 px-2 py-2 w-96 rounded-md outline-none placeholder-pink-200'
+                        className='bg-pink-50 border border-pink-200 px-2 py-2 w-96 rounded-md outline-none placeholder-pink-200 w-full'
                     />
                 </div>
 
                 {/* Input Two  */}
-                <div className="mb-5">
+                <div className="mb-5 w-full">
                     <input
                         type="password"
                         placeholder='Password'
@@ -105,7 +92,7 @@ const Login = () => {
                                 password: e.target.value
                             })
                         }}
-                        className='bg-pink-50 border border-pink-200 px-2 py-2 w-96 rounded-md outline-none placeholder-pink-200'
+                        className='bg-pink-50 border border-pink-200 px-2 py-2 w-96 rounded-md outline-none placeholder-pink-200 w-full'
                     />
                 </div>
 
