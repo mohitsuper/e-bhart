@@ -14,14 +14,17 @@ export default function Navbar() {
   
    let localData = localStorage.getItem("users");
    let userinfo = JSON.parse(localData);
-   console.log(localData)
+   
+
   // Function to toggle the mobile menu
+  //this comment
+  
   const toggleMobileMenu = () => {
     setMobileMenuOpen(!isMobileMenuOpen);
   };
   
   let logout =() =>{
-    Navigate('/login');
+    localStorage.clear();
   }
 
   // Navigation list items
@@ -46,7 +49,7 @@ export default function Navbar() {
         <Link to="/cart">Cart</Link>
       </li>
       <li>
-        <Link to="/admin" className={`${(userinfo.role == "user")?"hidden":"block"}`}>Admin</Link>
+        <Link to="/admin" >Admin</Link>
       </li>
       <li>
        
