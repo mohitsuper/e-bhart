@@ -17,6 +17,8 @@ export default function Navbar() {
    
 
   // Function to toggle the mobile menu
+  //this comment
+  
   const toggleMobileMenu = () => {
     setMobileMenuOpen(!isMobileMenuOpen);
   };
