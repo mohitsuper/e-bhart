@@ -1,4 +1,4 @@
-//HOW TO PUSH A DATA GITHUB?
+
 
 import React, { useState } from "react";
 import {addDoc, collection, getDocs} from 'firebase/firestore'
