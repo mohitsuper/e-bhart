@@ -7,11 +7,10 @@ export function Card() {
   let localtion = useLocation();
   let index = localtion.pathname.split('/')[2];
   let filter = productData.filter((v)=>v.id==index);
-  console.log(filter);
   //how to get product info page data in card page?
 
   const [prolist, setProlist] = useState([]);
-  console.log(prolist)
+
 
 
   let objNew = {
@@ -34,9 +33,9 @@ export function Card() {
     
        },[]);
 
-   
-
-
+       const addItem = useCallback((newItem) => {
+        setProlist((prevList) => [...prevList, newItem]);
+      }, [setProlist]);
   const removeItem = (id) => {
     setProlist(prolist.filter(item => item.id !== id));
   };
@@ -59,7 +58,10 @@ export function Card() {
     }));
   };
 
-
+  const totalAmount = prolist.reduce((acc, item) => {
+    const price = item.price - (item.price * item.discount) / 100;
+    return acc + price * item.quantity;
+  }, 0);
   
   return (
     <Layout>
@@ -120,9 +122,9 @@ export function Card() {
                  { prolist.map((v)=>{
                   let dis = (v.price*v.discount)/100;
                   let price = v.price-dis;
-                  // let totol += price;
+                  
                     return(
-                      <tr>
+                      <tr key={v.id}>
                       <td>&#8377;{v.price}</td>
                       <td className='text-green-500'>-&#8377;{dis}</td>
                       <td>&#8377;{price}</td>
@@ -134,7 +136,7 @@ export function Card() {
             </table>
             <div>
               <span>Total Amount:{prolist.forEach((v)=>{})} </span>
-              <span>₹8,888</span>
+              <span>{totalAmount}</span>
             </div>
           </div>
         </div>

@@ -14,7 +14,11 @@ export default function AdminDashboard() {
           <div className='bg-pink-50 border border-pink-500 rounded-md my-5'>
             <Heading title="Admin dashbord"  StyleName={'text-center text-pink-500'}/>
           </div>
-          <UserInfo/>
+          <UserInfo obj={{
+            "name":"admin",
+            "email":"admin@gmail.com",
+             "role":"admin",
+          }}/>
           <div className='grid gap-5 xl:grid-cols-3 grid-cols-1 my-5'>
             <Item/>
             <Item/>

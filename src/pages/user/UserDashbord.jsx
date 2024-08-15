@@ -24,7 +24,11 @@ let products = [
   return (
     <Layout>
         <div className='container mx-auto px-2 my-5'>
-            <UserInfo/>
+            <UserInfo obj={{
+            "name":"user",
+            "email":"user@gmail.com",
+             "role":"user",
+          }}/>
             <div className='flex flex-col'>
              <Heading title={"order Details"}/>
              <div className='border border-pink-500 rounded-md flex '>
