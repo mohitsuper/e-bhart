@@ -152,7 +152,7 @@ let UpdateProductPage=  async ()=>{
                             className='bg-pink-50 border text-pink-300 border-pink-200 px-2 py-2  rounded-md outline-none placeholder-pink-300'
                         />
                     </div>
-
+  {/* this is a comment */}
                     {/* Input Four  */}
                     <div className="mb-3">
                         <select
