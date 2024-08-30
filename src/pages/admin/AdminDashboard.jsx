@@ -10,7 +10,7 @@ import ProductDetail from './ProductDetail';
 export default function AdminDashboard() {
   return (
     <Layout>
-        <div className="container mx-auto ">
+        <div className="container mx-auto px-3">
           <div className='bg-pink-50 border border-pink-500 rounded-md my-5'>
             <Heading title="Admin dashbord"  StyleName={'text-center text-pink-500'}/>
           </div>
