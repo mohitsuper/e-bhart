@@ -19,13 +19,13 @@ export default function Productinfo() {
                
            </div>
            <div className=' w-auto basis-[60%] p-2   gap-5 flex flex-col'>
-            <h1 className=' text-xl font-[600] text-[#444]  '>{filter.title}</h1>
+            {/* <h1 className=' text-xl font-[600] text-[#444]  '>{filter.title}</h1> */}
             <p className='text-[1.2rem] font-light text-[#666] text-uppercase'>man's fanshion t shrit</p>
-            <h2 className='text-[#333] font-bold'>₹{filter.price}</h2>
+            {/* <h2 className='text-[#333] font-bold'>₹{filter.price}</h2> */}
             <div className='dec text-xl font-semibold'>product discribtion</div>
-            <p className=''>{filter.desc}</p>
-            <Button className='bg-pink-500 hover:bg-pink-200 duration-500'>
-            <Link to={`/cart/${filter.id}`}>Add to card</Link> </Button>
+            {/* <p className=''>{filter.desc}</p> */}
+            {/* <Button className='bg-pink-500 hover:bg-pink-200 duration-500'>
+            <Link to={`/cart/${filter.id}`}>Add to card</Link> </Button> */}
            </div>
 
        </div>

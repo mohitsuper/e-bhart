@@ -60,6 +60,7 @@ function Products(){
       const productsRef = collection(fireDB, "products");
       const querySnapshot = await getDocs(productsRef);
       const products = querySnapshot.docs.map((doc) => doc.data());
+      console.log(productData)
       setProductData(products);
     }
     fetchData();

@@ -37,8 +37,8 @@ const Login = () => {
            let q =  await getDocs(userCollection);
            q.forEach((doc) =>{
                 if(doc.data().email==email&&doc.data().password==password) {
-                toast.success("Login Successfull");
                 localStorage.setItem("users",JSON.stringify(doc.data()))
+                toast.success("Login Successfull");
                 navigate('/')
 
                 }

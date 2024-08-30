@@ -49,7 +49,7 @@ export default function Navbar() {
         <Link to="/cart">Cart</Link>
       </li>
       <li>
-        <Link to="/admin" >Admin</Link>
+        <Link to="/admin-dashboard" >Admin</Link>
       </li>
       <li>
        
